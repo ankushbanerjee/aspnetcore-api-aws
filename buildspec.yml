@@ -1,15 +1,18 @@
 version: 0.2
 phases:
-pre_build:
-commands:
-- dotnet restore
-build:
-commands:
-- dotnet publish -o output
-- mkdir build
-- cp -R output build/output
-- cp Dockerfile build/Dockerfile
-artifacts:
-files:
-- '**/*'
-base-directory: build
+    pre_build:
+        commands:
+            - echo dotnet restore started at `date`
+            - dotnet restore
+    build:
+        commands:
+            - echo dotnet build started at `date`
+            - dotnet publish -o output
+            - mkdir build
+            - cp -R output build/output
+            - cp Dockerfile build/Dockerfile
+            - echo dotnet build completed at `date`
+        artifacts:
+            files:
+                - '**/*'    
+            base-directory: build
